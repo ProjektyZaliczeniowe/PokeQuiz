@@ -5,7 +5,10 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
+
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -15,11 +18,27 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Objects.requireNonNull(getSupportActionBar()).hide();
+
         final ImageButton musicButton = findViewById(R.id.imageButton);
-        configureBackgorundMusic(musicButton);
+        configureBackgroundMusic(musicButton);
+
+        createStartQuizButton();
     }
 
-    private void configureBackgorundMusic(final ImageButton musicButton) {
+    private void createStartQuizButton() {
+        Button start = super.findViewById(R.id.button);
+
+        start.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, QuizActivity.class);
+                MainActivity.this.startActivity(i);
+            }
+        });
+    }
+
+    private void configureBackgroundMusic(final ImageButton musicButton) {
         final SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("sharedPreferences", 0);
         musicOn = sharedPreferences.getBoolean("musicOn", true);
         if (musicOn) {
