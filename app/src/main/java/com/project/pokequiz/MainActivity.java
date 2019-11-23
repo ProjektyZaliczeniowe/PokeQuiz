@@ -4,9 +4,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+
+import java.util.List;
 
 import java.util.Objects;
 
@@ -24,6 +28,15 @@ public class MainActivity extends AppCompatActivity {
         configureBackgroundMusic(musicButton);
 
         createStartQuizButton();
+        configureBackgorundMusic(musicButton);
+        SQLiteOpenHelper openHelper = new OpenHelper(this);
+        SQLiteDatabase db = openHelper.getWritableDatabase();
+        QuestionDao studentDao = new QuestionDao(db);
+        List<Question> questionList = studentDao.getAll();
+        byte[] decodedString = Base64.decode(questionList.get(0).getBase64Image(), Base64.DEFAULT);
+        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+        ImageView imageView = findViewById(R.id.imageView);
+        imageView.setImageBitmap(decodedByte);
     }
 
     private void createStartQuizButton() {
