@@ -2,6 +2,10 @@ package com.project.pokequiz;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
@@ -28,14 +32,18 @@ public class MainActivity extends AppCompatActivity {
         configureBackgroundMusic(musicButton);
 
         createStartQuizButton();
-        configureBackgorundMusic(musicButton);
+
         SQLiteOpenHelper openHelper = new OpenHelper(this);
         SQLiteDatabase db = openHelper.getWritableDatabase();
+        testImageFromDatabase(db);
+    }
+
+    private void testImageFromDatabase(SQLiteDatabase db) {
         QuestionDao studentDao = new QuestionDao(db);
         List<Question> questionList = studentDao.getAll();
         byte[] decodedString = Base64.decode(questionList.get(0).getBase64Image(), Base64.DEFAULT);
         Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-        ImageView imageView = findViewById(R.id.imageView);
+        ImageView imageView = findViewById(R.id.imageViewBase64);
         imageView.setImageBitmap(decodedByte);
     }
 
