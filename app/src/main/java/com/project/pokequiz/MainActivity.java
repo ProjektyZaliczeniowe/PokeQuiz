@@ -1,11 +1,13 @@
 package com.project.pokequiz;
 
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.AudioManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
@@ -21,11 +23,13 @@ import java.util.Objects;
 public class MainActivity extends AppCompatActivity {
 
     private boolean musicOn;
+    private AudioJackReceiver receiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        receiver = new AudioJackReceiver();
         Objects.requireNonNull(getSupportActionBar()).hide();
 
         final ImageButton musicButton = findViewById(R.id.imageButton);
@@ -36,6 +40,13 @@ public class MainActivity extends AppCompatActivity {
         SQLiteOpenHelper openHelper = new OpenHelper(this);
         SQLiteDatabase db = openHelper.getWritableDatabase();
         testImageFromDatabase(db);
+    }
+
+    @Override public void onResume() {
+        IntentFilter filter = new IntentFilter(AudioManager.ACTION_HEADSET_PLUG);
+        filter.setPriority(1000);
+        registerReceiver(receiver, filter);
+        super.onResume();
     }
 
     private void testImageFromDatabase(SQLiteDatabase db) {
