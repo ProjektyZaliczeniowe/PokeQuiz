@@ -1,1 +1,1 @@
-git include ':app'
+include ':app'

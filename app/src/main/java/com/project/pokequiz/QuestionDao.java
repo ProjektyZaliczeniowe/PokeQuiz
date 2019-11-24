@@ -13,7 +13,7 @@ public class QuestionDao implements Dao<Question> {
 
     private static final String INSERT =
             "insert into " + QuestionTable.TABLE_NAME
-                    + "(" + QuestionTable.QuestionColumns.BASE64IMAGE + ", " + QuestionTable.QuestionColumns.WRONGANSWER1
+                    + "(" + QuestionTable.QuestionColumns.IMAGE_NAME + ", " + QuestionTable.QuestionColumns.WRONGANSWER1
                     + ", " + QuestionTable.QuestionColumns.WRONGANSWER2 + ", " + QuestionTable.QuestionColumns.WRONGANSWER3
                     + ", " + QuestionTable.QuestionColumns.GOODANSWER +") " +
                     "values (?, ?, ?, ?, ?)";
@@ -29,7 +29,7 @@ public class QuestionDao implements Dao<Question> {
     @Override
     public long save(Question entity) {
         insertStatement.clearBindings();
-        insertStatement.bindBlob(1, entity.getBase64Image());
+        insertStatement.bindString(1, entity.getImageName());
         insertStatement.bindString(2, entity.getWrongAnswer1());
         insertStatement.bindString(3, entity.getWrongAnswer2());
         insertStatement.bindString(4, entity.getWrongAnswer3());
@@ -41,7 +41,8 @@ public class QuestionDao implements Dao<Question> {
     @Override
     public void update(Question entity) {
         final ContentValues values = new ContentValues();
-        values.put(QuestionTable.QuestionColumns.BASE64IMAGE, entity.getBase64Image());
+//        values.put(QuestionTable.QuestionColumns.BASE64IMAGE, entity.getBase64Image());
+        values.put(QuestionTable.QuestionColumns.IMAGE_NAME, entity.getBase64Image());
         values.put(QuestionTable.QuestionColumns.WRONGANSWER1, entity.getWrongAnswer1());
         values.put(QuestionTable.QuestionColumns.WRONGANSWER2, entity.getWrongAnswer2());
         values.put(QuestionTable.QuestionColumns.WRONGANSWER3, entity.getWrongAnswer3());
@@ -67,7 +68,8 @@ public class QuestionDao implements Dao<Question> {
                 db.query(QuestionTable.TABLE_NAME,
                         new String[] {
                                 BaseColumns._ID,
-                                QuestionTable.QuestionColumns.BASE64IMAGE,
+//                                QuestionTable.QuestionColumns.BASE64IMAGE,
+                                QuestionTable.QuestionColumns.IMAGE_NAME,
                                 QuestionTable.QuestionColumns.WRONGANSWER1,
                                 QuestionTable.QuestionColumns.WRONGANSWER2,
                                 QuestionTable.QuestionColumns.WRONGANSWER3,
@@ -88,7 +90,9 @@ public class QuestionDao implements Dao<Question> {
         List<Question> list = new ArrayList<Question>();
         Cursor c =
                 db.query(QuestionTable.TABLE_NAME, new String[] {
-                                BaseColumns._ID, QuestionTable.QuestionColumns.BASE64IMAGE,
+//                                BaseColumns._ID, QuestionTable.QuestionColumns.BASE64IMAGE,
+                                BaseColumns._ID,
+                                QuestionTable.QuestionColumns.IMAGE_NAME,
                                 QuestionTable.QuestionColumns.WRONGANSWER1,
                                 QuestionTable.QuestionColumns.WRONGANSWER2,
                                 QuestionTable.QuestionColumns.WRONGANSWER3,
@@ -113,7 +117,8 @@ public class QuestionDao implements Dao<Question> {
         if (c != null) {
             question = new Question();
             question.setId(c.getLong(0));
-            question.setBase64Image(c.getBlob(1));
+//            question.setBase64Image(c.getBlob(1));
+            question.setImageName(c.getString(1));
             question.setWrongAnswer1(c.getString(2));
             question.setWrongAnswer2(c.getString(3));
             question.setWrongAnswer3(c.getString(4));

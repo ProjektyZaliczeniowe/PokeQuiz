@@ -4,6 +4,7 @@ package com.project.pokequiz;
 public class Question {
     private long id;
     private byte[] base64Image;
+    private String imageName;
     private String wrongAnswer1;
     private String wrongAnswer2;
     private String wrongAnswer3;
@@ -60,8 +61,25 @@ public class Question {
         this.goodAnswer = goodAnswer;
     }
 
-    public Question(byte[] base64Image, String wrongAnswer1, String wrongAnswer2, String wrongAnswer3, String goodAnswer) {
+    public String getImageName(){
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
+    }
+
+    public Question(int id, byte[] base64Image, String wrongAnswer1, String wrongAnswer2, String wrongAnswer3, String goodAnswer) {
+        this.id = id;
         this.base64Image = base64Image;
+        this.wrongAnswer1 = wrongAnswer1;
+        this.wrongAnswer2 = wrongAnswer2;
+        this.wrongAnswer3 = wrongAnswer3;
+        this.goodAnswer = goodAnswer;
+    }
+
+    public Question(String imageName, String wrongAnswer1, String wrongAnswer2, String wrongAnswer3, String goodAnswer) {
+        this.imageName = imageName;
         this.wrongAnswer1 = wrongAnswer1;
         this.wrongAnswer2 = wrongAnswer2;
         this.wrongAnswer3 = wrongAnswer3;

@@ -1,5 +1,6 @@
 package com.project.pokequiz;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
@@ -14,6 +15,9 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 import java.util.Objects;
@@ -35,16 +39,23 @@ public class MainActivity extends AppCompatActivity {
 
         SQLiteOpenHelper openHelper = new OpenHelper(this);
         SQLiteDatabase db = openHelper.getWritableDatabase();
+
         testImageFromDatabase(db);
     }
 
     private void testImageFromDatabase(SQLiteDatabase db) {
         QuestionDao studentDao = new QuestionDao(db);
         List<Question> questionList = studentDao.getAll();
-        byte[] decodedString = Base64.decode(questionList.get(0).getBase64Image(), Base64.DEFAULT);
-        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+
         ImageView imageView = findViewById(R.id.imageViewBase64);
-        imageView.setImageBitmap(decodedByte);
+        String imageName = questionList.get(0).getImageName();
+        ImageView imageView2 = findViewById(R.id.imageView2);
+
+        int testImageBlack = getResources().getIdentifier(imageName , "drawable", getPackageName());
+        int testImageColor = getResources().getIdentifier(imageName + "_color" , "drawable", getPackageName());
+
+        imageView.setImageResource(testImageBlack);
+        imageView2.setImageResource(testImageColor);
     }
 
     private void createStartQuizButton() {
