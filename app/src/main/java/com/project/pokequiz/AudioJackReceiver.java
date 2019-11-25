@@ -11,6 +11,7 @@ public class AudioJackReceiver extends BroadcastReceiver {
 
     private final String PLUG_IN_MESSAGE = "Słuchawki podłączone";
     private final String PLUG_OFF_MESSAGE = "Odłączono słuchawki";
+    private static int plugState = 0;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -18,10 +19,14 @@ public class AudioJackReceiver extends BroadcastReceiver {
             int state = intent.getIntExtra("state", -1);
             switch (state) {
                 case 0:
-                    Toast.makeText(context, PLUG_OFF_MESSAGE, Toast.LENGTH_LONG).show();
+                    if(plugState != -1)
+                        Toast.makeText(context, PLUG_OFF_MESSAGE, Toast.LENGTH_LONG).show();
+                    plugState = -1;
                     break;
                 case 1:
-                    Toast.makeText(context, PLUG_IN_MESSAGE, Toast.LENGTH_LONG).show();
+                    if(plugState != 1 )
+                        Toast.makeText(context, PLUG_IN_MESSAGE, Toast.LENGTH_LONG).show();
+                    plugState = 1;
                     break;
                 default:
                     break;
