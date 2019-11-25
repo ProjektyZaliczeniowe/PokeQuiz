@@ -21,7 +21,8 @@
         android:id="@+id/imageButton"
         android:layout_width="46dp"
         android:layout_height="40dp"
-        android:layout_marginTop="116dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
         android:scaleType="fitXY"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -39,8 +40,8 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="364dp"
-        android:layout_height="102dp"
+        android:layout_width="362dp"
+        android:layout_height="109dp"
         app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.489"
@@ -57,21 +58,21 @@
         android:text="Start Quiz"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.509"
+        app:layout_constraintHorizontal_bias="0.499"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.232" />
+        app:layout_constraintVertical_bias="0.055" />
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="758dp"
+        android:layout_height="271dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button"
-        app:layout_constraintVertical_bias="0.378"
+        app:layout_constraintVertical_bias="0.934"
         app:srcCompat="@drawable/poke_main_image" />
 
     <ImageView
