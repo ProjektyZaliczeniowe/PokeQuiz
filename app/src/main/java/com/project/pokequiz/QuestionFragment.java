@@ -7,6 +7,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 
@@ -19,14 +21,13 @@ import android.widget.TextView;
  * create an instance of this fragment.
  */
 public class QuestionFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private Question question;
+    private ImageView pokemon;
+    private Button btn1;
+    private Button btn2;
+    private Button btn3;
+
 
     private OnFragmentInteractionListener mListener;
 
@@ -34,50 +35,100 @@ public class QuestionFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment QuestionFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static QuestionFragment newInstance(String param1, String param2) {
+    public static QuestionFragment newInstance(Question question) {
         QuestionFragment fragment = new QuestionFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
+        fragment.setQuestion(question);
         return fragment;
+    }
+
+    private void setQuestion(Question question) {
+        this.question = question;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         LayoutInflater lf = getActivity().getLayoutInflater();
-        View rootView = lf.inflate(R.layout.fragment_question, container, false);
-        final TextView questionInFragment = (TextView) rootView.findViewById(R.id.question);
-        String question = getArguments().getString("question");
-        questionInFragment.setText(question);
+        final View rootView = lf.inflate(R.layout.fragment_question, container, false);
+        pokemon = rootView.findViewById(R.id.questionImage);
+        int imageResource = getResources().getIdentifier("@drawable/"+question.getImageName(), "drawable", "com.project.pokequiz");
+        pokemon.setImageResource(imageResource);
+        btn1 = rootView.findViewById(R.id.ans1);
+        btn1.setText(question.getWrongAnswer1());
+        btn2 = rootView.findViewById(R.id.ans2);
+        btn2.setText(question.getWrongAnswer2());
+        btn3 = rootView.findViewById(R.id.ans3);
+        btn3.setText(question.getWrongAnswer3());
+
+        btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                revealPokemon();
+                if(question.getGoodAnswer().equals(question.getWrongAnswer1())) {
+                    //todo przechodzimy dalej
+                    triggerGoodAnswer();
+                } else {
+                    //todo koniec gry
+                    triggerWrongAnswer();
+                }
+            }
+        });
+        btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                revealPokemon();
+                if(question.getGoodAnswer().equals(question.getWrongAnswer2())) {
+                    //todo przechodzimy dalej
+                    triggerGoodAnswer();
+                } else {
+                    //todo koniec gry
+                    triggerWrongAnswer();
+                }
+            }
+        });
+        btn3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                revealPokemon();
+                if(question.getGoodAnswer().equals(question.getWrongAnswer3())) {
+                    //todo przechodzimy dalej
+                    triggerGoodAnswer();
+                } else {
+                    //todo koniec gry
+                    triggerWrongAnswer();
+                }
+            }
+        });
         return rootView;
-//        return inflater.inflate(R.layout.fragment_question, container, false);
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
+
+    private void triggerGoodAnswer() {
+        QuizActivity quizActivity = (QuizActivity) getActivity();
+        TextView mainButton = quizActivity.findViewById(R.id.mainButton);
+        mainButton.setEnabled(true);
+        quizActivity.score++;
+        TextView scoreText = quizActivity.findViewById(R.id.scoreText);
+        scoreText.setText("Twój wynik: "+ quizActivity.score);
+    }
+
+    private void triggerWrongAnswer() {
+        QuizActivity quizActivity = (QuizActivity) getActivity();
+        TextView gameOverText = quizActivity.findViewById(R.id.gameOverText);
+        gameOverText.setVisibility(View.VISIBLE);
+    }
+
+    private void revealPokemon() {
+        int imageResource = getResources().getIdentifier("@drawable/"+question.getImageName()+"_color", "drawable", "com.project.pokequiz");
+        pokemon.setImageResource(imageResource);
+        btn1.setEnabled(false);
+        btn2.setEnabled(false);
+        btn3.setEnabled(false);
     }
 
     @Override

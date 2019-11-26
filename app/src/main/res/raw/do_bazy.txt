@@ -5,10 +5,10 @@ venosaur, Venosaur, Meganium, Ivysaur, Venosaur
 articuno, Zapdos, Moltres, Articuno, Articuno
 tauros, Mereep, Rhyhorn, Tauros, Tauros
 scyter, Aerodactyl, Scyter, Mr Mime, Scyter
-gengar, Hunter, Genger, Pinsir, Gengar
-rapidsh, Rapidash, Ponyta, Tauros, Rapidash
+gengar, Hunter, Gengar, Pinsir, Gengar
+rapidash, Rapidash, Ponyta, Tauros, Rapidash
 ditto, Ditto, Hunter, Gengar, Ditto
-magneton, Magnemite, Magneton, Voltrob, Magneton
+magnemite, Magnemite, Magneton, Voltrob, Magneton
 psyduck, Hypno, Kadabra, Psyduck, Psyduck
 kadabra, Kadabra, Alakazam, Hypno, Kadabra
 gyarados, Magikarp, Gyarados, Onix, Gyarados
