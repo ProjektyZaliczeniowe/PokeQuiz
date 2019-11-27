@@ -48,18 +48,6 @@ public class MainActivity extends AppCompatActivity {
         SQLiteOpenHelper openHelper = new OpenHelper(this);
         SQLiteDatabase db = openHelper.getWritableDatabase();
 
-        testImageFromDatabase(db);
-
-        Configuration config = new Configuration(this.getResources().getConfiguration());
-        config.setLocale(Locale.CHINESE);
-
-        Resources res = this.getResources();
-// Change locale settings in the app.
-        DisplayMetrics dm = res.getDisplayMetrics();
-        android.content.res.Configuration conf = res.getConfiguration();
-        conf.setLocale(new Locale("ZH")); // API 17+ only.
-// Use conf.locale = new Locale(...) if targeting lower versions
-        res.updateConfiguration(conf, dm);
     }
 
     @Override public void onResume() {
@@ -67,21 +55,6 @@ public class MainActivity extends AppCompatActivity {
         filter.setPriority(1000);
         registerReceiver(receiver, filter);
         super.onResume();
-    }
-
-    private void testImageFromDatabase(SQLiteDatabase db) {
-        QuestionDao studentDao = new QuestionDao(db);
-        List<Question> questionList = studentDao.getAll();
-
-        ImageView imageView = findViewById(R.id.imageViewBase64);
-        String imageName = questionList.get(0).getImageName();
-        ImageView imageView2 = findViewById(R.id.imageView2);
-
-        int testImageBlack = getResources().getIdentifier(imageName , "drawable", getPackageName());
-        int testImageColor = getResources().getIdentifier(imageName + "_color" , "drawable", getPackageName());
-
-        imageView.setImageResource(testImageBlack);
-        imageView2.setImageResource(testImageColor);
     }
 
     private void createStartQuizButton() {

@@ -40,7 +40,7 @@ public class OpenHelper extends SQLiteOpenHelper {
             e.printStackTrace();
         }
         String s =  byteStream.toString();
-        String[] split = s.split("\n");
+        String[] split = s.split("\r\n");
 
         QuestionDao questionDao = new QuestionDao(db);
 

@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -29,6 +30,7 @@ public class QuizActivity extends AppCompatActivity {
         SQLiteDatabase db = openHelper.getWritableDatabase();
         QuestionDao questionDao = new QuestionDao(db);
         final List<Question> questionList = questionDao.getAll();
+        Collections.shuffle(questionList);
 
         score = 0;
 
@@ -42,7 +44,7 @@ public class QuizActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(score >= questionList.size()){
                     TextView gameOverButton = findViewById(R.id.gameOverText);
-                    gameOverButton.setText("WYGRAŁEŚ!");
+                    gameOverButton.setText(getString(R.string.win));
                     gameOverButton.setVisibility(View.VISIBLE);
                     quizMainButton.setEnabled(false);
                 }
@@ -53,7 +55,6 @@ public class QuizActivity extends AppCompatActivity {
                         fragmentTransaction.replace(R.id.question_frag, fragment).commit();
                         quizMainButton.setEnabled(false);
                     }
-
             }
         });
     }

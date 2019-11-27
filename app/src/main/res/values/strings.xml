@@ -1,7 +1,10 @@
 <resources>
     <string name="app_name">PokeQuiz</string>
-    <string name="curr_date">Grudzien</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Krzysiek, zmień te beznadziejną muzykę</string>
+    <string name="start_button">Rozpocznij Quiz</string>
+    <string name="next_question">Następne pytanie</string>
+    <string name="lose">PRZEGRAŁEŚ</string>
+    <string name="score">Twój wynik: 0</string>
+    <string name="win">WYGRAŁEŚ!</string>
+    <string name="headphones_on">Słuchawki podłączone</string>
+    <string name="headphones_off">Odłączono słuchawki!</string>
 </resources>

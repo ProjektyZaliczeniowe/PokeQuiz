@@ -9,8 +9,6 @@ import android.widget.Toast;
 
 public class AudioJackReceiver extends BroadcastReceiver {
 
-    private final String PLUG_IN_MESSAGE = "Słuchawki podłączone";
-    private final String PLUG_OFF_MESSAGE = "Odłączono słuchawki";
     private static int plugState = 0;
 
     @Override
@@ -20,12 +18,12 @@ public class AudioJackReceiver extends BroadcastReceiver {
             switch (state) {
                 case 0:
                     if(plugState != -1)
-                        Toast.makeText(context, PLUG_OFF_MESSAGE, Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, R.string.headphones_off, Toast.LENGTH_LONG).show();
                     plugState = -1;
                     break;
                 case 1:
                     if(plugState != 1 )
-                        Toast.makeText(context, PLUG_IN_MESSAGE, Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, R.string.headphones_on, Toast.LENGTH_LONG).show();
                     plugState = 1;
                     break;
                 default:

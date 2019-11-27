@@ -10,14 +10,16 @@
     <FrameLayout
         android:id="@+id/question_frag"
         android:layout_width="300dp"
-        android:layout_height="328dp"
+        android:layout_height="324dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.038"
+        app:layout_constraintHorizontal_bias="0.032"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.219">
 
     </FrameLayout>
 
@@ -28,7 +30,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="80dp"
-        android:text="Następne pytanie"
+        android:text="@string/next_question"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.878"
@@ -41,7 +43,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="44dp"
         android:layout_marginEnd="16dp"
-        android:text="PRZEGRAŁEŚ"
+        android:text="@string/lose"
         android:textColor="@android:color/holo_red_dark"
         android:textSize="30sp"
         android:visibility="invisible"
@@ -58,7 +60,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:text="Twój wynik: 0"
+        android:text="@string/score"
         android:textColor="@android:color/holo_blue_dark"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/mainButton"

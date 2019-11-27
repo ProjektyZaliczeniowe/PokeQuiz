@@ -7,7 +7,6 @@ public final class QuestionTable {
     public static final String TABLE_NAME = "question";
 
     public static class QuestionColumns implements BaseColumns {
-//        public static final String BASE64IMAGE = "base_64_image";
         public static final String IMAGE_NAME = "image_name";
         public static final String WRONGANSWER1 = "wrong_answer_1";
         public static final String WRONGANSWER2 = "wrong_answer_2";
@@ -18,7 +17,6 @@ public final class QuestionTable {
         StringBuilder sb = new StringBuilder();
         sb.append("CREATE TABLE " + QuestionTable.TABLE_NAME + " (");
         sb.append(BaseColumns._ID + " INTEGER PRIMARY KEY, ");
-//        sb.append(QuestionColumns.BASE64IMAGE + " BLOB, ");
         sb.append(QuestionColumns.IMAGE_NAME + " TEXT, ");
         sb.append(QuestionColumns.WRONGANSWER1 + " TEXT, ");
         sb.append(QuestionColumns.WRONGANSWER2 + " TEXT, ");

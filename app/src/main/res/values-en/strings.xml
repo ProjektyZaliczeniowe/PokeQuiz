@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">PokeQuiz</string>
+    <string name="start_button">Start Quiz</string>
+    <string name="next_question">Next question</string>
+    <string name="lose">You lose</string>
+    <string name="score">Your score: 0</string>
+    <string name="win">You won!</string>
+    <string name="headphones_on">Headphones unplugged</string>
+    <string name="headphones_off">Headphones plugged</string>
+</resources>

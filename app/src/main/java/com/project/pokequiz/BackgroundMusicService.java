@@ -17,7 +17,7 @@ public class BackgroundMusicService extends Service {
 
     @Override
     public void onCreate() {
-        mediaPlayer = MediaPlayer.create(this, R.raw.background_music);
+        mediaPlayer = MediaPlayer.create(this, R.raw.gym_chill);
         mediaPlayer.setLooping(true);
     }
 
