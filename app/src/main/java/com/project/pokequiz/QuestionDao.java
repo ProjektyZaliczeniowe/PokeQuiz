@@ -112,7 +112,8 @@ public class QuestionDao implements Dao<Question> {
     private Question buildQuestionFromCursor(Cursor c) {
         Question question = null;
         if (c != null) {
-            question = new Question();
+            question = new Question(c.getString(1), c.getString(2),
+            c.getString(3), c.getString(4), c.getString(5));
             question.setId(c.getLong(0));
             question.setImageName(c.getString(1));
             question.setWrongAnswer1(c.getString(2));

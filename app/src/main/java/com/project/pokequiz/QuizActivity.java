@@ -10,13 +10,28 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
 public class QuizActivity extends AppCompatActivity {
 
     int score;
+    List<Question> questionList;
+    Question currentQuestion;
+    boolean lockedFraggmentButtons;
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("score", score);
+        if(score < questionList.size()) {
+            outState.putSerializable("currentQuestion", questionList.get(score));
+            outState.putBoolean("locked", false);
+        } else {
+            outState.putSerializable("currentQuestion", currentQuestion);
+            outState.putBoolean("locked", true);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,15 +41,23 @@ public class QuizActivity extends AppCompatActivity {
 
         final Button quizMainButton = this.findViewById(R.id.mainButton);
 
-        SQLiteOpenHelper openHelper = new OpenHelper(this);
-        SQLiteDatabase db = openHelper.getWritableDatabase();
-        QuestionDao questionDao = new QuestionDao(db);
-        final List<Question> questionList = questionDao.getAll();
-        Collections.shuffle(questionList);
+//        SQLiteOpenHelper openHelper = new OpenHelper(this);
+//        SQLiteDatabase db = openHelper.getWritableDatabase();
+//        QuestionDao questionDao = new QuestionDao(db);
+//        questionList = questionDao.getAll();
+//        Collections.shuffle(questionList);
+        questionList = (List<Question>) getIntent().getSerializableExtra("QuestionList");
 
-        score = 0;
+        if(savedInstanceState != null) {
+            score = savedInstanceState.getInt("score");
+            currentQuestion = (Question) savedInstanceState.getSerializable("currentQuestion");
+            lockedFraggmentButtons = savedInstanceState.getBoolean("locked");
 
-        Fragment fragment = QuestionFragment.newInstance(questionList.get(score));
+        } else {
+            score = 0;
+            currentQuestion = questionList.get(score);
+        }
+        Fragment fragment = QuestionFragment.newInstance();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.question_frag, fragment).commit();
         quizMainButton.setEnabled(false);
@@ -50,7 +73,7 @@ public class QuizActivity extends AppCompatActivity {
                 }
                 else
                     {
-                        Fragment fragment = QuestionFragment.newInstance(questionList.get(score));
+                        Fragment fragment = QuestionFragment.newInstance();
                         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                         fragmentTransaction.replace(R.id.question_frag, fragment).commit();
                         quizMainButton.setEnabled(false);

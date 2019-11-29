@@ -23,6 +23,8 @@ import android.widget.ImageView;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
+import java.util.Collections;
 import java.util.List;
 
 import java.util.Locale;
@@ -63,7 +65,13 @@ public class MainActivity extends AppCompatActivity {
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SQLiteOpenHelper openHelper = new OpenHelper(v.getContext());
+                SQLiteDatabase db = openHelper.getWritableDatabase();
+                QuestionDao questionDao = new QuestionDao(db);
+                List<Question> questionList = questionDao.getAll();
+                Collections.shuffle(questionList);
                 Intent i = new Intent(MainActivity.this, QuizActivity.class);
+                i.putExtra("QuestionList", (Serializable) questionList);
                 MainActivity.this.startActivity(i);
             }
         });

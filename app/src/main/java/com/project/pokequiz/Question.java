@@ -1,7 +1,9 @@
 package com.project.pokequiz;
 
 
-public class Question {
+import java.io.Serializable;
+
+public class Question implements Serializable {
     private long id;
     private String imageName;
     private String wrongAnswer1;
